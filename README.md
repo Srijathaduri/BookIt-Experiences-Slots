@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # BookIt: Experiences & Slots
 
 This is a web application where users can explore and book various travel experiences, select available dates and time slots, and complete their bookings seamlessly.
@@ -47,3 +48,6 @@ Your app is ready to be deployed!
 ### `npm run preview`
 
 This command runs a static server on the `dist` folder, allowing you to preview the production build locally.
+=======
+# BookIt-Experiences-Slots
+>>>>>>> 85a48fd3610f788a2550cd955079f02fe8c6cc6e
