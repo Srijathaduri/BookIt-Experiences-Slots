@@ -1,0 +1,63 @@
+
+import React, { useState } from 'react';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
+
+const Header: React.FC = () => {
+    const [searchTerm, setSearchTerm] = useState('');
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const handleSearch = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (location.pathname !== '/') {
+            navigate(`/?search=${encodeURIComponent(searchTerm)}`);
+        } else {
+            // Logic to update search on HomePage is handled within HomePage itself
+            // This is a simplified approach. For a more robust app, use a global state.
+            const searchParams = new URLSearchParams(location.search);
+            searchParams.set('search', searchTerm);
+            navigate(`/?${searchParams.toString()}`);
+        }
+    };
+
+    const Logo = () => (
+      <svg width="40" height="40" viewBox="0 0 55 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="27.5" cy="27.5" r="27.5" fill="black"/>
+          <path d="M19.5 37.5C19.5 37.5 17 33 17 27.5C17 22 19.5 17.5 19.5 17.5M27.5 37.5V17.5M35.5 37.5C35.5 37.5 38 33 38 27.5C38 22 35.5 17.5 35.5 17.5" stroke="#FFC700" strokeWidth="3" strokeLinecap="round"/>
+          <path d="M19.5 27.5H35.5" stroke="white" strokeWidth="3" strokeLinecap="round"/>
+          <circle cx="27.5" cy="12.5" r="2.5" fill="#FFC700"/>
+      </svg>
+    );
+
+    return (
+        <header className="sticky top-0 bg-white shadow-md z-10 border-b border-brand-gray-300">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex items-center justify-between h-20">
+                    <Link to="/" className="flex items-center space-x-2">
+                        <Logo />
+                        <span className="font-bold text-xl text-gray-800">highway delite</span>
+                    </Link>
+                    <div className="flex-1 flex justify-center px-8">
+                        <form onSubmit={handleSearch} className="w-full max-w-lg">
+                            <div className="relative">
+                                <input
+                                    type="search"
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    placeholder="Search experiences"
+                                    className="w-full py-2 pl-4 pr-20 rounded-lg border border-brand-gray-300 bg-brand-gray-100 focus:outline-none focus:ring-2 focus:ring-brand-purple"
+                                />
+                                <button type="submit" className="absolute right-1 top-1/2 -translate-y-1/2 bg-brand-yellow text-black font-semibold px-4 py-1 rounded-md hover:bg-yellow-400 transition-colors">
+                                    Search
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div className="h-1 bg-gradient-to-r from-brand-purple to-pink-500"></div>
+        </header>
+    );
+};
+
+export default Header;
